@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+
 def open_login(driver):
     driver.get("https://www.saucedemo.com/")
 
