@@ -11,3 +11,9 @@ def do_login(driver, username, password):
 
 def get_error_message(driver):
     return driver.find_element(By.CSS_SELECTOR, "h3[data-test='error']")
+
+def add_all_products_to_cart(driver):
+    buttons = driver.find_elements(By.CLASS_NAME, "btn_inventory")
+    for btn in buttons:
+        btn.click()
+    return len(buttons)
