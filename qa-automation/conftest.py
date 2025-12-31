@@ -10,6 +10,13 @@ def driver():
     options = Options()
     options.add_argument("--window-size=1400,900")
 
+    # Google Password Manager
+    prefs = {
+        "credentials_enable_service": False,
+        "profile.password_manager_enabled": False
+    }
+    options.add_experimental_option("prefs", prefs)
+
     drv = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()),
         options=options

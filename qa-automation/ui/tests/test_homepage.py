@@ -1,8 +1,9 @@
-from ui.pages.login_page import open_login, do_login, get_error_message,add_all_products_to_cart,checkout,go_to_cart
+from ui.pages.login_page import open_login, do_login, get_error_message,add_all_products_to_cart,checkout,go_to_cart,fill_checkout_info,continue_checkout
 import pytest # type: ignore
 from selenium.webdriver.common.by import By
 import time 
 
+"""
 
 def test_login_success(driver):
     open_login(driver)
@@ -39,6 +40,27 @@ def test_checkout(driver):
     go_to_cart(driver)
     time.sleep(2)
     checkout(driver)
+"""
+
+def test_continue_checkout(driver):
+    open_login(driver)
+    do_login(driver, "standard_user", "secret_sauce")
+    add_all_products_to_cart(driver)
+    go_to_cart(driver)
+    checkout(driver)
+    fill_checkout_info(driver, "John", "Doe", "12345")
+    continue_checkout(driver)
+    
+
+    print("url", driver.current_url)
+
+
+    
+
+    
+    
+    
+    
     
 
 
