@@ -17,3 +17,16 @@ def add_all_products_to_cart(driver):
     for btn in buttons:
         btn.click()
     return len(buttons)
+
+def go_to_cart(driver):
+    cart_link = driver.find_element(By.CLASS_NAME, "shopping_cart_link")
+    cart_link.click()
+    return
+
+def checkout(driver):
+    checkout_button = driver.find_element(By.ID, "checkout")
+    checkout_button.click()
+    return
+
+
+   

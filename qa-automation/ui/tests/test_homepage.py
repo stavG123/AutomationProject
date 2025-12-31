@@ -1,6 +1,7 @@
-from ui.pages.login_page import open_login, do_login, get_error_message,add_all_products_to_cart
+from ui.pages.login_page import open_login, do_login, get_error_message,add_all_products_to_cart,checkout,go_to_cart
 import pytest # type: ignore
 from selenium.webdriver.common.by import By
+import time 
 
 
 def test_login_success(driver):
@@ -30,6 +31,15 @@ def test_add_all_products_to_cart(driver):
     cart_badge = driver.find_element(By.CLASS_NAME, "shopping_cart_badge")
     assert int(cart_badge.text) == added_count
     print(f"Added {added_count} products to the cart successfully.")
+
+def test_checkout(driver):
+    open_login(driver)
+    do_login(driver, "standard_user", "secret_sauce")
+    add_all_products_to_cart(driver)
+    go_to_cart(driver)
+    time.sleep(2)
+    checkout(driver)
+    
 
 
 
