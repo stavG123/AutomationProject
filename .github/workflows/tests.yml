@@ -10,6 +10,9 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
+    env:
+      BOOKER_BASE_URL: https://restful-booker.herokuapp.com
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,6 +41,3 @@ jobs:
         with:
           name: test-reports
           path: reports/**
-
-
-
