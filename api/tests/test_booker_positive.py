@@ -39,3 +39,5 @@ def test_delete_booking_201(session, base_url, created_booking_id, auth_token):
     headers = {"Cookie": f"token={auth_token}"}
     r = session.delete(f"{base_url}/booking/{created_booking_id}", headers=headers)
     assert r.status_code == 201
+
+

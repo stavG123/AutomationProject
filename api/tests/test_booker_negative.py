@@ -22,3 +22,6 @@ def test_wrong_content_type_400_415_500(session, base_url):
     headers = {"Content-Type": "text/plain"}
     r = session.post(f"{base_url}/booking", data="not json", headers=headers)
     assert r.status_code in (400, 415, 500)
+
+
+
