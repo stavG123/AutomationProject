@@ -2,13 +2,10 @@ import os
 import pytest  # type: ignore
 import requests
 
-BASE_URL = os.getenv("BOOKER_BASE_URL", "https://www.manning.com/books/testing-web-apis?utm_source=winteringham&utm_medium=affiliate&utm_campaign=affiliate&a_aid=winteringham")
-
-
-
 @pytest.fixture(scope="session")
 def base_url():
-    return BASE_URL
+    return os.getenv("BOOKER_BASE_URL", "https://restful-booker.herokuapp.com")
+
 
 
 @pytest.fixture(scope="session")
