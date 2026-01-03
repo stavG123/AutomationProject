@@ -1,14 +1,19 @@
-import pytest # type: ignore
+import pytest  # type: ignore
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 import os
+
 
 @pytest.fixture
 def driver():
     options = Options()
     options.add_argument("--window-size=1400,900")
+
+    # CI (GitHub Actions) needs headless chrome
+    if os.getenv("CI") == "true":
+        options.add_argument("--headless=new")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
 
     # Use a clean temporary browsing session (helps a lot)
     options.add_argument("--incognito")
@@ -28,7 +33,7 @@ def driver():
     drv = webdriver.Chrome(options=options)
     yield drv
     drv.quit()
-    
+
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
