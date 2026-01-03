@@ -10,17 +10,22 @@ def driver():
     options = Options()
     options.add_argument("--window-size=1400,900")
 
-    # Google Password Manager
-    prefs = {
-        "credentials_enable_service": False,
-        "profile.password_manager_enabled": False
-    }
-    options.add_experimental_option("prefs", prefs)
+    # Use a clean temporary browsing session (helps a lot)
+    options.add_argument("--incognito")
+    options.add_argument("--disable-notifications")
 
-    drv = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()),
-        options=options
-    )
+    # Disable Chrome password manager + leak detection popups
+    options.add_experimental_option("prefs", {
+        "credentials_enable_service": False,
+        "profile.password_manager_enabled": False,
+        "password_manager_leak_detection": False,
+        "profile.default_content_setting_values.notifications": 2,
+    })
+
+    # Disable Chromium “password leak detection” features (the popup you saw)
+    options.add_argument("--disable-features=PasswordLeakDetection,PasswordManagerEnablePasswordsLeakCheck")
+
+    drv = webdriver.Chrome(options=options)
     yield drv
     drv.quit()
     

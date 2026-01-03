@@ -1,67 +1,24 @@
-from ui.pages.login_page import open_login, do_login, get_error_message,add_all_products_to_cart,checkout,go_to_cart,fill_checkout_info,continue_checkout
-import pytest # type: ignore
-from selenium.webdriver.common.by import By
-import time 
-
-"""
-
-def test_login_success(driver):
-    open_login(driver)
-    do_login(driver, "standard_user", "secret_sauce")
-    assert "inventory" in driver.current_url.lower()
-
-def test_login_wrong_password(driver):
-    # GIVEN
-    open_login(driver)
-    # WHEN
-    do_login(driver, "standard_user", "wrong_pass")
-    # THEN
-    assert "inventory" not in driver.current_url.lower()
-    error_message = get_error_message(driver)
-    assert error_message.is_displayed()
-
-def test_add_all_products_to_cart(driver):
-    # GIVEN
-    open_login(driver)
-    do_login(driver, "standard_user", "secret_sauce")
-
-    # WHEN
-    added_count = add_all_products_to_cart(driver)
-
-    # THEN
-    cart_badge = driver.find_element(By.CLASS_NAME, "shopping_cart_badge")
-    assert int(cart_badge.text) == added_count
-    print(f"Added {added_count} products to the cart successfully.")
-
-def test_checkout(driver):
-    open_login(driver)
-    do_login(driver, "standard_user", "secret_sauce")
-    add_all_products_to_cart(driver)
-    go_to_cart(driver)
-    time.sleep(2)
-    checkout(driver)
-"""
+from ui.pages.login_page import (
+    open_login, do_login,
+    add_all_products_to_cart, go_to_cart,
+    click_checkout, fill_info_and_continue,
+    click_finish, is_checkout_complete
+)
+import time
 
 def test_continue_checkout(driver):
     open_login(driver)
     do_login(driver, "standard_user", "secret_sauce")
+
     add_all_products_to_cart(driver)
     go_to_cart(driver)
-    checkout(driver)
-    fill_checkout_info(driver, "John", "Doe", "12345")
-    continue_checkout(driver)
-    
+    click_checkout(driver)
 
-    print("url", driver.current_url)
+    fill_info_and_continue(driver, "John", "Doe", "12345")
+    print("after continue url:", driver.current_url)
 
+    click_finish(driver)
 
-    
-
-    
-    
-    
-    
-    
-
-
-
+    assert is_checkout_complete(driver)
+    time.sleep(4)
+    print("Checkout completed ✅")
