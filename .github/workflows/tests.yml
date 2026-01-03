@@ -27,6 +27,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Debug BOOKER_BASE_URL
+        run: echo "BOOKER_BASE_URL=$BOOKER_BASE_URL"
+
       - name: Run API tests
         run: |
           pytest api/tests --html=reports/api_report.html --self-contained-html
